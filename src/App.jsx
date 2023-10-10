@@ -1,11 +1,11 @@
 import Nav from "./components/nav/Nav";
-import { moviesList, moviesCategories } from "./js/request";
-import { useEffect } from "react";
+import MainMovies from "./components/mainMovies/MainMovies";
 
 function App() {
   return (
     <>
       <Nav></Nav>
+      <MainMovies />
     </>
   )
 }
