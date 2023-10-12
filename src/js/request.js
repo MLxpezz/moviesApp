@@ -8,11 +8,9 @@ const options = {
 };
 
 export const moviesList = async () => {
-  return await fetch(
-    `https://api.themoviedb.org/3/movie/157336?api_key=348d7e6beb244ce4a937e6094e2e1464&append_to_response=videos,images`
-  )
-    .then((response) => response.json())
-    .then((response) => console.log(response));
+  const data = await fetch(
+    `https://api.themoviedb.org/3/movie/popular?language=es-MX&page=1`, options);
+  return data.json();
 };
 
 export const moviesCategories = async () => {
