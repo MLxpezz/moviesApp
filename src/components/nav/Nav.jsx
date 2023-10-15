@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import Categories from "./subcomponents/categories/Categories";
 import { searchMovie } from "../../js/request";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { contextData } from "../Context/Context";
 
 const StyledNav = styled.nav`
   width: 100%;
@@ -9,6 +10,7 @@ const StyledNav = styled.nav`
   align-items: center;
   justify-content: space-between;
   height: auto;
+  margin-bottom: 30px;
 `;
 
 const CustomTextField = styled.input`
@@ -18,16 +20,18 @@ const CustomTextField = styled.input`
 const Nav = () => {
 
     const [movie, setMovie] = useState('');
+    const data = useContext(contextData);
 
   const handleSearch = (e) => {
     setMovie(e);
   };
 
-  const handleSubmit = async (e, movieName) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const response = await searchMovie(movieName);
-        console.log(response.results);
+        const response = await searchMovie(movie);
+        data.setListMovies(response.results);
+        console.log(data.listMovies);
     } catch (error) {
         console.error('No se encontro la pelicula', error);
     }
@@ -38,7 +42,7 @@ const Nav = () => {
       <p>Logo</p>
       <form action="" onSubmit={
         (e) => {
-            handleSubmit(e, movie);
+            handleSubmit(e);
         }
       }>
       <CustomTextField type="text" placeholder="Buscar..." onChange={(e) => {handleSearch(e.target.value)}}
