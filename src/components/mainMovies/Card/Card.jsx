@@ -7,8 +7,8 @@ const CardContainer = styled.div`
     flex-direction: column;
     margin: auto;
     overflow-wrap: break-word;
-    width: 220px;
-    height: 450px;
+    width: 150px;
+    height: 350px;
     border: 3px solid #000;
     padding: 2px;
     background-color: #ccc;
@@ -20,7 +20,7 @@ const CategoriesContainer = styled.span`
   justify-content: space-around;
   margin: auto;
   flex-wrap: wrap;
-  width: 80%;
+  width: 100%;
 `;
 
 const MovieTitle = styled.h5`
@@ -31,7 +31,7 @@ const MovieTitle = styled.h5`
 `;
 
 const Card = ({ title, poster_path, categories }) => {
-  let imageUrl = "https://image.tmdb.org/t/p/w220_and_h330_face/";
+  let imageUrl = "https://image.tmdb.org/t/p/w150_and_h225_face/";
 
   return (
     <CardContainer>

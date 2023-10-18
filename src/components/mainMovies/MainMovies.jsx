@@ -5,12 +5,17 @@ import { contextData } from "../Context/Context";
 import styled from "styled-components";
 
 const MoviesContainer = styled.section`
-  width: 100%;
+  width: 60%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 20px;
+  margin: auto;
+`;
+
+const LoadButton = styled.button`
+  margin: auto;
 `;
 
 const MainMovies = () => {
@@ -54,7 +59,8 @@ const MainMovies = () => {
       {list
         .filter(
           (movie, index, self) =>
-            index === self.findIndex((m) => m.id === movie.id) && movie.poster_path !== null
+            index === self.findIndex((m) => m.id === movie.id) &&
+            movie.poster_path !== null
         )
         .slice(0, limitPage) // Limita la cantidad de películas a mostrar según el estado limitPage
         .map((movie) => {
@@ -71,13 +77,13 @@ const MainMovies = () => {
           );
         })}
       {
-        <button
+        <LoadButton
           onClick={() => {
             loadMovies();
           }}
         >
           Cargar más películas
-        </button>
+        </LoadButton>
       }
     </MoviesContainer>
   );
