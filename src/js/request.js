@@ -45,3 +45,13 @@ export const searchMovie = async (movieName) => {
     console.error("No se encontro el titulo", error);
   }
 };
+
+
+export const videoMovie = async (id) => {
+  try {
+    const data = await fetch(`https://api.themoviedb.org/3/movie/${id}/videos?language=es-MX`, options);
+    return data.json();
+  } catch (error) {
+    console.error('No se encontro el video.', error);
+  } 
+};

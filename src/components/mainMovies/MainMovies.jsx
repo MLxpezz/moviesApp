@@ -1,8 +1,9 @@
-import Card from "./Card/Card";
+import Card from "./subcomponents/Card/Card";
 import { moviesList, moviesCategories } from "../../js/request";
 import { useState, useEffect, useContext } from "react";
 import { contextData } from "../Context/Context";
 import styled from "styled-components";
+import Slider from "./subcomponents/Slider/Slider";
 
 const MoviesContainer = styled.section`
   width: 60%;
@@ -15,7 +16,10 @@ const MoviesContainer = styled.section`
 `;
 
 const LoadButton = styled.button`
+  display: flex;
   margin: auto;
+  margin-top: 40px;
+  margin-bottom: 30px;
 `;
 
 const MainMovies = () => {
@@ -55,27 +59,30 @@ const MainMovies = () => {
   };
 
   return (
-    <MoviesContainer>
-      {list
-        .filter(
-          (movie, index, self) =>
-            index === self.findIndex((m) => m.id === movie.id) &&
-            movie.poster_path !== null
-        )
-        .slice(0, limitPage) // Limita la cantidad de películas a mostrar según el estado limitPage
-        .map((movie) => {
-          const movieCategories = categories.genres.filter((cat) =>
-            movie.genre_ids.some((id) => id === cat.id)
-          );
-          return (
-            <Card
-              key={movie.id}
-              title={movie.title}
-              poster_path={movie.poster_path}
-              categories={movieCategories}
-            />
-          );
-        })}
+    <>
+      <Slider listMovie = {list}/>
+      <MoviesContainer>
+        {list
+          .filter(
+            (movie, index, self) =>
+              index === self.findIndex((m) => m.id === movie.id) &&
+              movie.poster_path !== null
+          )
+          .slice(0, limitPage) // Limita la cantidad de películas a mostrar según el estado limitPage
+          .map((movie) => {
+            const movieCategories = categories.genres.filter((cat) =>
+              movie.genre_ids.some((id) => id === cat.id)
+            );
+            return (
+              <Card
+                key={movie.id}
+                title={movie.title}
+                poster_path={movie.poster_path}
+                categories={movieCategories}
+              />
+            );
+          })}
+      </MoviesContainer>
       {
         <LoadButton
           onClick={() => {
@@ -85,7 +92,7 @@ const MainMovies = () => {
           Cargar más películas
         </LoadButton>
       }
-    </MoviesContainer>
+    </>
   );
 };
 
