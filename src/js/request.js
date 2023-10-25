@@ -7,11 +7,16 @@ const options = {
   },
 };
 
-export const moviesList = async () => {
+export const moviesList = async (page) => {
   const data = await fetch(
-    `https://api.themoviedb.org/3/movie/popular?language=es-MX&page=1`, options);
+    `https://api.themoviedb.org/3/movie/popular?language=es-MX&page=${page}`, options);
   return data.json();
 };
+
+export const seriesList = async () => {
+  const data = await fetch(`https://api.themoviedb.org/3/tv/popular?language=es-MX&page=1`, options);
+  return data.json();
+}
 
 export const moviesCategories = async () => {
   const data = await fetch(
@@ -39,4 +44,14 @@ export const searchMovie = async (movieName) => {
   } catch (error) {
     console.error("No se encontro el titulo", error);
   }
+};
+
+
+export const videoMovie = async (id) => {
+  try {
+    const data = await fetch(`https://api.themoviedb.org/3/movie/${id}/videos?language=es-MX`, options);
+    return data.json();
+  } catch (error) {
+    console.error('No se encontro el video.', error);
+  } 
 };
