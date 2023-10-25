@@ -6,11 +6,11 @@ import styled from "styled-components";
 import Slider from "./subcomponents/Slider/Slider";
 
 const MoviesContainer = styled.section`
-  width: 60%;
+  width: 75%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   gap: 20px;
   margin: auto;
 `;
@@ -60,7 +60,7 @@ const MainMovies = () => {
 
   return (
     <>
-      <Slider listMovie = {list}/>
+      {list.length > 0 && <Slider listMovie={list} />}
       <MoviesContainer>
         {list
           .filter(

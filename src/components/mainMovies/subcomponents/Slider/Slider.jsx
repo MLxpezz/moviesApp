@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Card from "../Card/Card";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 const SliderContainer = styled.div`
   display: flex;
@@ -9,24 +9,28 @@ const SliderContainer = styled.div`
   margin: 70px auto;
   gap: 40px;
   width: 100%;
+  height: 500px;
   overflow: hidden;
   transition: all 1s;
 
-  .slider-child:nth-child(10){
+  .slider-child {
+    height: auto;
+    background-color: #000;
+    border: 4px solid blueviolet;
+    padding: 5px;
+    align-items: center;
+  }
+
+  .slider-child > h5 {
+    display: none;
+  }
+
+  .slider-child:nth-child(10) {
     transform: scale(1.1);
     box-shadow: 1px 1px 8px 1px black;
     z-index: 100;
     padding: 5px;
     transition: all 0.5s;
-    position: absolute;
-  }
-
-  .slider-child:nth-child(9){
-    margin-right: 110px;
-  }
-
-  .slider-child:nth-child(11){
-    margin-left: 110px;
   }
 
   .slider-child:nth-child(20) {
@@ -35,15 +39,13 @@ const SliderContainer = styled.div`
 `;
 
 const Slider = ({ listMovie }) => {
-  const [copyList, setCopyList] = useState([]);
+  const [copyList, setCopyList] = useState([...listMovie]);
 
   useEffect(() => {
-    if (listMovie && listMovie.length > 0) {
-      const filteredList = listMovie.filter(movie => movie && movie.title);
-
-      setCopyList([...filteredList]);
+    if (listMovie) {
+      setCopyList([...listMovie]);
     }
-  }, [listMovie]);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -51,7 +53,7 @@ const Slider = ({ listMovie }) => {
       const firstMovie = updatedMovies.shift();
       updatedMovies.push(firstMovie);
       setCopyList(updatedMovies);
-    }, 6000); 
+    }, 6000);
 
     // Limpia el intervalo cuando el componente se desmonta
     return () => clearInterval(interval);
@@ -59,18 +61,16 @@ const Slider = ({ listMovie }) => {
 
   return (
     <SliderContainer>
-      {copyList && copyList
-          .map((movie) => {
-            return (
-              <Card
-              $tamanio='50px'
-                styledClass = 'slider-child'
-                key={movie.id}
-                title={movie.title}
-                poster_path={movie.poster_path}
-              />
-            );
-          })}
+      {copyList &&
+        copyList.map((movie) => {
+          return (
+            <Card
+              styledClass="slider-child"
+              key={movie.id}
+              poster_path={movie.poster_path}
+            />
+          );
+        })}
     </SliderContainer>
   );
 };

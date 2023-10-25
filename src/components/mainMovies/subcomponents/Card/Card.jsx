@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const CardContainer = styled.div`
     display: flex;
-    width: ${(props) => props.tamanio || '150px'};
+    width: 200px;
     height: 350px;
     align-items: center;
     justify-content: center;
@@ -23,17 +23,17 @@ const CategoriesContainer = styled.span`
 `;
 
 const MovieTitle = styled.h5`
-  font-size: 16px;
+  font-size: 15px;
   margin: auto;
   padding: 5px;
   word-wrap: break-word;
 `;
 
-const Card = ({ title, poster_path, categories, styledClass }) => {
+const Card = ({$fontSize ,$ancho, title, poster_path, categories, styledClass }) => {
   let imageUrl = "https://image.tmdb.org/t/p/w150_and_h225_face/";
 
   return (
-    <CardContainer className={styledClass}>
+    <CardContainer className={styledClass} $ancho={$ancho}>
       <MovieTitle>{title}</MovieTitle>
       <img src={`${imageUrl}${poster_path}`} alt={title} />
       <CategoriesContainer>
