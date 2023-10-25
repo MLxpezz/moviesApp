@@ -10,6 +10,10 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  body {
+    background-color: #0E1826;
+  }
+
 `;
 
 function App() {

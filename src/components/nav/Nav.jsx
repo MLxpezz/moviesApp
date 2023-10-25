@@ -11,6 +11,7 @@ const StyledNav = styled.nav`
   justify-content: space-between;
   height: auto;
   margin-bottom: 30px;
+  background-color: #253140;
 `;
 
 const CustomTextField = styled.input`

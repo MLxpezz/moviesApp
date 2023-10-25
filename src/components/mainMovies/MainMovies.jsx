@@ -5,14 +5,19 @@ import { contextData } from "../Context/Context";
 import styled from "styled-components";
 import Slider from "./subcomponents/Slider/Slider";
 
+const MainContainer = styled.main`
+  background-color: #061A26;
+`
+
 const MoviesContainer = styled.section`
-  width: 75%;
+  width: 60%;
+  height: auto;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: start;
-  gap: 20px;
+  justify-content: space-evenly;
   margin: auto;
+  gap: 20px;
 `;
 
 const LoadButton = styled.button`
@@ -20,6 +25,21 @@ const LoadButton = styled.button`
   margin: auto;
   margin-top: 40px;
   margin-bottom: 30px;
+
+  padding: 9px;
+  background-color: transparent;
+  color: #41D9D9;
+  font-weight: 700;
+  border: 1px solid #41D9D9;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: #41D9D9;
+    color: #0A5159;
+    border: 2px solid #0A5159;
+    cursor: pointer;
+    transition: all 1s;
+  }
 `;
 
 const MainMovies = () => {
@@ -59,7 +79,7 @@ const MainMovies = () => {
   };
 
   return (
-    <>
+    <MainContainer>
       {list.length > 0 && <Slider listMovie={list} />}
       <MoviesContainer>
         {list
@@ -92,7 +112,7 @@ const MainMovies = () => {
           Cargar más películas
         </LoadButton>
       }
-    </>
+    </MainContainer>
   );
 };
 

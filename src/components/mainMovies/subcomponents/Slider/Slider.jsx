@@ -9,16 +9,22 @@ const SliderContainer = styled.div`
   margin: 70px auto;
   gap: 40px;
   width: 100%;
-  height: 500px;
+  height: 340px;
   overflow: hidden;
   transition: all 1s;
+  background-color: black;
 
   .slider-child {
     height: auto;
-    background-color: #000;
-    border: 4px solid blueviolet;
+    opacity: 0.3;
+    background-color: transparent;
+    border: none;
     padding: 5px;
     align-items: center;
+  }
+
+  .slider-child:hover {
+    opacity: 1; 
   }
 
   .slider-child > h5 {
@@ -26,8 +32,8 @@ const SliderContainer = styled.div`
   }
 
   .slider-child:nth-child(10) {
-    transform: scale(1.1);
-    box-shadow: 1px 1px 8px 1px black;
+    transform: scale(1.4);
+    opacity: 1;
     z-index: 100;
     padding: 5px;
     transition: all 0.5s;
