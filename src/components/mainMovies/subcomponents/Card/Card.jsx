@@ -32,7 +32,7 @@ const Card = ({title, poster_path, styledClass }) => {
   return (
     <CardContainer className={styledClass}>
       <img src={`${imageUrl}${poster_path}`} alt={title} />
-      <MovieTitle>{title}</MovieTitle>
+      <MovieTitle>{title && title}</MovieTitle>
     </CardContainer>
   );
 };

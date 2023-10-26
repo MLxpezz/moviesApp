@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import Card from "../Card/Card";
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
+import IntroMovie from "../IntroMovie/IntroMovie";
 
 const SliderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 70px auto;
+  margin: 15px 0;
   gap: 40px;
   width: 100%;
   height: 340px;
@@ -24,7 +25,7 @@ const SliderContainer = styled.div`
   }
 
   .slider-child:hover {
-    opacity: 1; 
+    opacity: 1;
   }
 
   .slider-child > h5 {
@@ -46,6 +47,7 @@ const SliderContainer = styled.div`
 
 const Slider = ({ listMovie }) => {
   const [copyList, setCopyList] = useState([...listMovie]);
+  const [movieSelected, setMovieSelected] = useState(copyList[9]);
 
   useEffect(() => {
     if (listMovie) {
@@ -61,23 +63,27 @@ const Slider = ({ listMovie }) => {
       setCopyList(updatedMovies);
     }, 6000);
 
+    setMovieSelected(copyList[9]);
     // Limpia el intervalo cuando el componente se desmonta
     return () => clearInterval(interval);
   }, [copyList]);
 
   return (
-    <SliderContainer>
-      {copyList &&
-        copyList.map((movie) => {
-          return (
-            <Card
-              styledClass="slider-child"
-              key={movie.id}
-              poster_path={movie.poster_path}
-            />
-          );
-        })}
-    </SliderContainer>
+    <>
+      <IntroMovie info={movieSelected} />
+      <SliderContainer>
+        {copyList &&
+          copyList.map((movie) => {
+            return (
+              <Card
+                styledClass="slider-child"
+                key={movie.id}
+                poster_path={movie.poster_path}
+              />
+            );
+          })}
+      </SliderContainer>
+    </>
   );
 };
 

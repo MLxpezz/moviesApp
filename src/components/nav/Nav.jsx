@@ -10,8 +10,9 @@ const StyledNav = styled.nav`
   align-items: center;
   justify-content: space-between;
   height: auto;
-  margin-bottom: 30px;
-  background-color: #253140;
+  background-color: transparent;
+  position: absolute;
+  z-index: 2000;
 `;
 
 const CustomTextField = styled.input`
