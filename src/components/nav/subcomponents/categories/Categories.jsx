@@ -2,15 +2,19 @@ import {
   moviesCategories,
   seriesCategories,
   moviesList,
-  seriesList
+  seriesList,
 } from "../../../../js/request";
 import { useState, useEffect, useContext } from "react";
 import { contextData } from "../../../Context/Context";
 import styled from "styled-components";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
-const StyledOption = styled.option`
-  display: none;
+const SelectContainer = styled(Select)`
+  height: 30px;
+  width: auto;
 `;
+
 
 const Categories = ({ cat }) => {
   const [category, setCategory] = useState([]);
@@ -25,7 +29,7 @@ const Categories = ({ cat }) => {
   const searchForCategory = {
     peliculas: moviesList,
     series: seriesList,
-  }
+  };
 
   useEffect(() => {
     (async () => {
@@ -38,37 +42,48 @@ const Categories = ({ cat }) => {
     })();
   }, []);
 
-  useEffect((e) => {
-    if (selectedCategory) {
-      const handleCategory = async () => {
-        try {
-          const categories = await searchForCategory[cat]();
-          const filterMovies = categories.results.filter(
-            cat => cat.genre_ids.includes(selectedCategory)
-          );
-          data.setListMovies(filterMovies);
-        } catch (error) {
-          console.error("Error al filtrar películas", error);
-        }
-      };
+  useEffect(
+    (e) => {
+      if (selectedCategory) {
+        const handleCategory = async () => {
+          try {
+            const categories = await searchForCategory[cat]();
+            const filterMovies = categories.results.filter((cat) =>
+              cat.genre_ids.includes(selectedCategory)
+            );
+            data.setListMovies(filterMovies);
+          } catch (error) {
+            console.error("Error al filtrar películas", error);
+          }
+        };
 
-      handleCategory();
-    }
-  }, [selectedCategory]);
+        handleCategory();
+      }
+    },
+    [selectedCategory]
+  );
 
   return (
-    <select
+    <SelectContainer
+      sx={{
+        color: '#ccc',
+        border: '1px solid #ccc'
+      }}
+      value={cat}
+      label={cat}
       name={cat}
       id={cat}
       onChange={(e) => setSelectedCategory(parseInt(e.target.value))}
     >
-      <StyledOption>{cat}</StyledOption>
+      <option value={cat} key={cat} style={{ display: "none" }}>
+        {cat}
+      </option>
       {category.map((categories) => (
-          <option key={categories.id} value={categories.id}>
-            {categories.name}
-          </option>
+        <MenuItem key={categories.id} value={categories.id}>
+          {categories.name}
+        </MenuItem>
       ))}
-    </select>
+    </SelectContainer>
   );
 };
 

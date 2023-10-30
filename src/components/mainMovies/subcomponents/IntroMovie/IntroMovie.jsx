@@ -65,11 +65,14 @@ const IntroMovie = ({ info }) => {
     <PostMovie $img={infoMovie ? `${imageUrl}${infoMovie.backdrop_path}` : ""}>
       <DetailMovie>
         <Card poster_path={infoMovie.poster_path} />
-        <MovieInfo>
-          <h1>{infoMovie.title}</h1>
-          <p>{infoMovie.release_date.substring(0, 4)}</p>
-          <p>{infoMovie.overview}</p>
-        </MovieInfo>
+        {infoMovie.title && (
+          <MovieInfo>
+            <h1>{infoMovie.title}</h1>
+            <p>{infoMovie.release_date.substring(0, 4)}</p>
+            <p>{infoMovie.overview}</p>
+          </MovieInfo>
+        )}
+        
       </DetailMovie>
     </PostMovie>
   );

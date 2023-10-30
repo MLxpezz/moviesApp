@@ -7,13 +7,16 @@ const SliderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 15px 0;
   gap: 40px;
   width: 100%;
   height: 340px;
   overflow: hidden;
   transition: all 1s;
   background-color: black;
+
+  & img {
+    width: 120px;
+  }
 
   .slider-child {
     height: auto;
