@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Card from "../Card/Card";
 import styled, { css } from "styled-components";
 import IntroMovie from "../IntroMovie/IntroMovie";
+import { moviesList } from "../../../../js/request";
 
 const SliderContainer = styled.div`
   display: flex;
@@ -48,14 +49,23 @@ const SliderContainer = styled.div`
   }
 `;
 
-const Slider = ({ listMovie }) => {
-  const [copyList, setCopyList] = useState([...listMovie]);
-  const [movieSelected, setMovieSelected] = useState(copyList[9]);
+const Slider = () => {
+  const [copyList, setCopyList] = useState([]);
+  const [movieSelected, setMovieSelected] = useState();
 
   useEffect(() => {
-    if (listMovie) {
-      setCopyList([...listMovie]);
-    }
+    (async () => {
+      try {
+        const response = await moviesList(1);
+
+        setCopyList(response.results);
+        setMovieSelected(copyList[9]);
+        console.log(copyList);
+
+      } catch (error) {
+        console.error("No se cargo la lista de peliculas", error);
+      }
+    })();
   }, []);
 
   useEffect(() => {

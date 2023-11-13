@@ -9,6 +9,7 @@ const PostMovie = styled.div`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  box-shadow: inset 0px 5px 25px 25px #000;
 
   &::before {
     content: "";

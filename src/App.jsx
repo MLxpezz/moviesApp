@@ -2,6 +2,7 @@ import Nav from "./components/nav/Nav";
 import MainMovies from "./components/mainMovies/MainMovies";
 import Context from "./components/Context/Context";
 import styled, { createGlobalStyle } from "styled-components";
+import Slider from "./components/mainMovies/subcomponents/Slider/Slider";
 
 const GlobalStyle = createGlobalStyle`
   *{
@@ -21,6 +22,7 @@ function App() {
     <Context>
       <GlobalStyle />
       <Nav></Nav>
+      <Slider />
       <MainMovies />
     </Context>
   );

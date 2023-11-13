@@ -82,7 +82,6 @@ const Nav = () => {
 
   return (
     <StyledNav>
-      <p>Logo</p>
       <form
         action=""
         onSubmit={(e) => {

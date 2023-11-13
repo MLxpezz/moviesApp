@@ -8,30 +8,87 @@ const options = {
 };
 
 export const moviesList = async (page) => {
-  const data = await fetch(
-    `https://api.themoviedb.org/3/movie/popular?language=es-MX&page=${page}`, options);
-  return data.json();
+  try {
+    const data = await fetch(
+      `https://api.themoviedb.org/3/movie/popular?language=es-MX&page=${page}`,
+      options
+    );
+    return data.json();
+  } catch (error) {
+    console.error("No se encontro la lista", error);
+  }
+};
+
+export const moviesTopRated = async () => {
+  try {
+    const data = await fetch(
+      `https://api.themoviedb.org/3/movie/top_rated?language=es-MX&page=1`,
+      options
+    );
+    return data.json();
+  } catch (error) {
+    console.error("No se encontro la lista", error);
+  }
+};
+
+export const moviesNowPlaying = async () => {
+  try {
+    const data = await fetch(
+      `https://api.themoviedb.org/3/movie/now_playing?language=es-MX&page=1`,
+      options
+    );
+    return data.json();
+  } catch (error) {
+    console.error("No se encontro la lista", error);
+  }
+};
+
+export const moviesUpComing = async () => {
+  try {
+    const data = await fetch(
+      `https://api.themoviedb.org/3/movie/upcoming?language=es-MX&page=1`,
+      options
+    );
+    return data.json();
+  } catch (error) {
+    console.error("No se encontro la lista", error);
+  }
 };
 
 export const seriesList = async () => {
-  const data = await fetch(`https://api.themoviedb.org/3/tv/popular?language=es-MX&page=1`, options);
-  return data.json();
-}
+  try {
+    const data = await fetch(
+      `https://api.themoviedb.org/3/tv/popular?language=es-MX&page=1`,
+      options
+    );
+    return data.json();
+  } catch (error) {
+    console.error("No se encontro la lista", error);
+  }
+};
 
 export const moviesCategories = async () => {
-  const data = await fetch(
-    `https://api.themoviedb.org/3/genre/movie/list?language=es`,
-    options
-  );
-  return data.json();
+  try {
+    const data = await fetch(
+      `https://api.themoviedb.org/3/genre/movie/list?language=es`,
+      options
+    );
+    return data.json();
+  } catch (error) {
+    console.error("No se encontro la categoria", error);
+  }
 };
 
 export const seriesCategories = async () => {
-  const data = await fetch(
-    `https://api.themoviedb.org/3/genre/tv/list?language=es`,
-    options
-  );
-  return data.json();
+  try {
+    const data = await fetch(
+      `https://api.themoviedb.org/3/genre/tv/list?language=es`,
+      options
+    );
+    return data.json();
+  } catch (error) {
+    console.error("No se encontro la categoria de la serie", error);
+  }
 };
 
 export const searchMovie = async (movieName) => {
@@ -46,12 +103,14 @@ export const searchMovie = async (movieName) => {
   }
 };
 
-
 export const videoMovie = async (id) => {
   try {
-    const data = await fetch(`https://api.themoviedb.org/3/movie/${id}/videos?language=es-MX`, options);
+    const data = await fetch(
+      `https://api.themoviedb.org/3/movie/${id}/videos?language=es-MX`,
+      options
+    );
     return data.json();
   } catch (error) {
-    console.error('No se encontro el video.', error);
-  } 
+    console.error("No se encontro el video.", error);
+  }
 };

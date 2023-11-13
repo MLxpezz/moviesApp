@@ -1,9 +1,8 @@
 import Card from "./subcomponents/Card/Card";
-import { moviesList, moviesCategories } from "../../js/request";
+import { moviesUpComing, moviesNowPlaying, moviesCategories, moviesTopRated } from "../../js/request";
 import { useState, useEffect, useContext } from "react";
 import { contextData } from "../Context/Context";
 import styled from "styled-components";
-import Slider from "./subcomponents/Slider/Slider";
 
 const MainContainer = styled.main`
   background-color: #061A26;
@@ -42,11 +41,19 @@ const LoadButton = styled.button`
   }
 `;
 
+const TopRatedTitle = styled.h1`
+  width: 100%;
+  font-size: 30px;
+  color: #0A5159;
+  margin-top: 20px;
+`
+
 const MainMovies = () => {
   const [list, setList] = useState([]);
-  const [categories, setCategories] = useState({});
+  const [listNowPlaying, setListNowPlaying] = useState([]);
+  const [listUpComing, setListUpComing] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [limitPage, setLimitPage] = useState(18);
+  const [limitPage, setLimitPage] = useState(6);
   const data = useContext(contextData);
 
   useEffect(() => {
@@ -55,17 +62,13 @@ const MainMovies = () => {
     } else {
       (async () => {
         try {
-          const response = await moviesList(currentPage);
-          const category = await moviesCategories();
+          const response = await moviesTopRated();
+          const resNowPlaying = await moviesNowPlaying();
+          const resUpComing = await moviesUpComing();
 
-          const uniqueMovies = response.results.filter(
-            (movie, index, self) =>
-              index === self.findIndex((m) => m.id === movie.id)
-          );
-
-          setList(list.concat(uniqueMovies));
-          setCategories(category);
-          console.log(list);
+          setList(response.results);
+          setListUpComing(resUpComing.results);
+          setListNowPlaying(resNowPlaying.results);
         } catch (error) {
           console.error("No se cargo la lista de peliculas", error);
         }
@@ -73,45 +76,40 @@ const MainMovies = () => {
     }
   }, [currentPage, data.listMovies]);
 
-  const loadMovies = () => {
-    setCurrentPage(currentPage + 1);
-    setLimitPage(limitPage + 18);
-  };
-
   return (
     <MainContainer>
-      {list.length > 0 && <Slider listMovie={list} />}
       <MoviesContainer>
+        <TopRatedTitle>Mejor valoradas</TopRatedTitle>
         {list
-          .filter(
-            (movie, index, self) =>
-              index === self.findIndex((m) => m.id === movie.id) &&
-              movie.poster_path !== null
-          )
-          .slice(0, limitPage) // Limita la cantidad de películas a mostrar según el estado limitPage
+          .slice(0, limitPage)
           .map((movie) => {
-            const movieCategories = categories.genres.filter((cat) =>
-              movie.genre_ids.some((id) => id === cat.id)
-            );
             return (
               <Card
                 key={movie.id}
                 title={movie.title}
                 poster_path={movie.poster_path}
-                categories={movieCategories}
               />
             );
           })}
+          <TopRatedTitle>Viendo ahora</TopRatedTitle>
+          {listNowPlaying.slice(0, limitPage).map((movie) => {
+            return (
+              <Card key={movie.id}
+                    title={movie.title}
+                    poster_path={movie.poster_path}
+                    />
+            );
+          })}
+          <TopRatedTitle>Proximamente</TopRatedTitle>
+          {listUpComing.slice(0, limitPage).map((movie) => {
+            return (
+              <Card key={movie.id}
+                    title={movie.title}
+                    poster_path={movie.poster_path}
+                    />
+            );
+          })}
       </MoviesContainer>
-      {
-        <LoadButton
-          onClick={() => {
-            loadMovies();
-          }}
-        >
-          Cargar más películas
-        </LoadButton>
-      }
     </MainContainer>
   );
 };
